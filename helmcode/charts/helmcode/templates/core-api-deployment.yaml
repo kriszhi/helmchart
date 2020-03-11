@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.name" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "app.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.coreapi.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      {{- include "app.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "app.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.coreapi.containername }}
+          image: "{{ .Values.coreapi.repository }}"
+          imagePullPolicy: {{ .Values.coreapi.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+          envFrom:
+          - secretRef:
+              name: aws
+          - secretRef:
+              name: vault
+          - configMapRef:
+              name: common-core
+          env:
+            - name: SERVICE_NAME
+              value: {{ include "app.name" . }}
+            - name: NODE_ENV
+              value: {{ .Values.namespace }}
+

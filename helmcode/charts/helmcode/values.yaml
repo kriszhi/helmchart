@@ -1,0 +1,245 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+namespace: helmcharts  # Need to change 3 place. All ingress namespaces.
+
+coreapi:
+  name: core-api 
+  containername: core-api
+  replicaCount: 1
+  repository: gcr.io/pharmacy-265821/core-api:68aa917f7bf1c73c88a44f07ffa19ff652648680 
+  pullPolicy: Always
+  service:
+    type: NodePort
+    port: 80
+    targetport: 3000
+  ingress:
+    enabled: true
+    secrets:
+    - name: core-api-sb-tls
+      namespace: helmcharts
+      key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBN1gxUW1yUGFjRTlIMmRNdDM2MGRBRWFUaXl3RkM5YW1EL2U2b1p0QVYvWXQ4NlpzCk41TU55OCtmSllLcDlnYXJ6UkZTaGs0amhsVHpLUDJDS3Jyc3pvblQyRCsrTTM0U1QydHRveXRJTllWNzZWbXkKZHVYT0RYS2VwejZGanlpL00veHZWd3A4cDl2TzlpZUtPS21IZXNCZU9CM04wS0h6U1MrL1kyU3hzYUhSMFJENwpDb0FoQzdrU1dzRnU3RDYzKzAzOWpyYzNpQzZ1cmlIUkIxVU9UdStaRytEMzdEVVFjUHQ3S0NBdlZLRVJ6aWloCm5qdTlNRkN0dFJMOG9oQ2RENzFuV3c2Y0RXa0xKQlVVZFdsUjFpT0dNWHhVeEE1RVhGWTNtL3BYSTg0WE5CMlUKelduT3M0dEZ5eUtUSENwV3AzcUNkeTVJRXdFeDk2K0xCM1doZlFJREFRQUJBb0lCQUVLOUVaYTM3aTNiaWJTRAo3UU5Ma2JmUEhZMWhySFZjTjhTSytHNkx3M1Ewb1VzMFBIc05uelhrUGJQNzJTbGpUSXBQVU9LZk9NcDZPdThNCjlyUnRYVGpaY0tmM21jcThwZ2FkaU96dXI5Y2lrT1ROcVNKU2lDb3RTTHAxRG5GaG9RSEo4YndESFc3S2pZbU4KS1FHdFduNDdhdjdZR1V1RkIycE11YnNEeEEvSGdCWnhPQkxjeWFvN0htTWdiMWxJTVpweWdhR0tKdWY0dWdCYQpWVWV1eFJaWk1mYkhUcXI2cGgzckNZcmRJSmt6a1BXYkh2d2d1Sm1nbzN1a1BUdTEvQmI4SXEzUVdsREpTQzJzCmkzREszc1J6OEJVT0pjcDZmeXFScVJCblE0YmRoZnVaVk0wakRSQXVuanZUeFphK1ZQeVdIeGRJZkVzWGsybEMKT0JtYktnRUNnWUVBL3dtQnp4YVVsdzMxVmRjNURoSU9MSkh5WnBiNEFiQU1IWVB6MDVQWlV1NnlXcTBic2d0aAoxbmhuNXRmcWtsOE8zbjVyOWtac2N5TGlhVityUEJkbEdjRExmSk1YRW1hYUQ0Rk9PbW9qOFo0YityVURQMkY0Cmk0UnZQWWZPZjhtKy9EdVlDM1ZRdEdWdGdFdDY4ekVKYlNjRXFwVG1ZVXBhWjRKQStUVVpTZjBDZ1lFQTdtTFoKR1lVZm5hSEtPNnRmaUc0YnAzZVhEYjZNOUhTOVkwc0IzS3laT3pwMFhpT3hISWo0cjZmM2tpeVBYRHhBVndUSgpOb1d5eUtNQjZjL0Z5ZWsrY05sdDk1a0tGN2srNi9pUENuUW9XQzRZVFJNTStFd1RrTVNuSTJySFlxdjFVcFZ6ClZlZ3BhemNJVVZRWGF4QVAvOU9mckdtUVFnZlVheEJlWW9JRGpZRUNnWUVBcHoyMHdmZ3N1R0dPNEJ1aWJuZW8KazlHaEEyVThmTjdWRXdYVWZvb1ZtU3l1Q0lnOEFTVTFvMDZSMCs4REE3a1NKeFQvOXg5M1BvbEJyNWZzMGhzRgpVVDM4TWxUQ2JHNmIyRThTM1h0ODFwUzRCRTl2TWNEWks2Uk16aXlnWFd3T3Naaml1NkRTcTNsWHRTbktGbSt4Cm5zSlhiUVQzamhVVDg0eVd6dFRqSUlFQ2dZQVFiRWp1cENnNGNPUUExbDZmaEk1dExDVUE4bWE5bEtsVGhPQmMKOXBzYjVId04zRUdnYUtOUlhxNEVxUU03Wkg4K1Azc3BRVzYrdWRRdzZucUMzWW5LdG9BSDljZ25PRURvZXRoSAo3UmEyZEg2Q0dOVGs2a0RTMFdsK1hDWGVXMkJzVHhXQ0RwdUQ0bWUxU3FqT1hHM3R2d09hR2kreEROOEtmVGN6CmJDZVlnUUtCZ0JrS2NSaTdqKzAwUUM4U09iQUpld2psRFNWYWtrRlR4U1NZOTFiaWVKN1FtRnJETkUxVE9oSVEKZ1RDMndnR1YrczBKWHdZV0Z0SFZTVDhmODBMbzJZN1ZNeUVrRU1mYTduNUpLRmlGVUUxVTRuOE9SRDZyTGMzVApWRGZtWndUc3VRRmJyYkt3S2RyOTNuS3piREprS29MalNHUEVNYjBrNndxM3cwUTJNc3kxCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+      certificate: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZsakNDQkg2Z0F3SUJBZ0lTQTN4VG9zS1kzUXVVankydENjMHVzVEZNTUEwR0NTcUdTSWIzRFFFQkN3VUEKTUVveEN6QUpCZ05WQkFZVEFsVlRNUll3RkFZRFZRUUtFdzFNWlhRbmN5QkZibU55ZVhCME1TTXdJUVlEVlFRRApFeHBNWlhRbmN5QkZibU55ZVhCMElFRjFkR2h2Y21sMGVTQllNekFlRncweU1EQXpNRE15TWpJeU5UVmFGdzB5Ck1EQTJNREV5TWpJeU5UVmFNQnd4R2pBWUJnTlZCQU1URVdGd2FTNW1ZV3h6WlhCcGJHd3VZMjl0TUlJQklqQU4KQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBN1gxUW1yUGFjRTlIMmRNdDM2MGRBRWFUaXl3RgpDOWFtRC9lNm9adEFWL1l0ODZac041TU55OCtmSllLcDlnYXJ6UkZTaGs0amhsVHpLUDJDS3Jyc3pvblQyRCsrCk0zNFNUMnR0b3l0SU5ZVjc2Vm15ZHVYT0RYS2VwejZGanlpL00veHZWd3A4cDl2TzlpZUtPS21IZXNCZU9CM04KMEtIelNTKy9ZMlN4c2FIUjBSRDdDb0FoQzdrU1dzRnU3RDYzKzAzOWpyYzNpQzZ1cmlIUkIxVU9UdStaRytEMwo3RFVRY1B0N0tDQXZWS0VSemlpaG5qdTlNRkN0dFJMOG9oQ2RENzFuV3c2Y0RXa0xKQlVVZFdsUjFpT0dNWHhVCnhBNUVYRlkzbS9wWEk4NFhOQjJVelduT3M0dEZ5eUtUSENwV3AzcUNkeTVJRXdFeDk2K0xCM1doZlFJREFRQUIKbzRJQ29qQ0NBcDR3RGdZRFZSMFBBUUgvQkFRREFnV2dNQjBHQTFVZEpRUVdNQlFHQ0NzR0FRVUZCd01CQmdncgpCZ0VGQlFjREFqQU1CZ05WSFJNQkFmOEVBakFBTUIwR0ExVWREZ1FXQkJSR0pzTUhnQndua0NHUnZDZXdrcTZJCkVHY3hXakFmQmdOVkhTTUVHREFXZ0JTb1NtcGpCSDNkdXViUk9iZW1SV1h2ODZqc29UQnZCZ2dyQmdFRkJRY0IKQVFSak1HRXdMZ1lJS3dZQkJRVUhNQUdHSW1oMGRIQTZMeTl2WTNOd0xtbHVkQzE0TXk1c1pYUnpaVzVqY25sdwpkQzV2Y21jd0x3WUlLd1lCQlFVSE1BS0dJMmgwZEhBNkx5OWpaWEowTG1sdWRDMTRNeTVzWlhSelpXNWpjbmx3CmRDNXZjbWN2TUZrR0ExVWRFUVJTTUZDQ0VXRndhUzVtWVd4elpYQnBiR3d1WTI5dGdpUmtaWFl0YzJGdVpHSnYKZUMxb1pXRnNkR2hqYUdGMExtWmhiSE5sY0dsc2JDNWpiMjJDRlc1bGQyTmxjblF1Wm1Gc2MyVndhV3hzTG1OdgpiVEJNQmdOVkhTQUVSVEJETUFnR0JtZUJEQUVDQVRBM0Jnc3JCZ0VFQVlMZkV3RUJBVEFvTUNZR0NDc0dBUVVGCkJ3SUJGaHBvZEhSd09pOHZZM0J6TG14bGRITmxibU55ZVhCMExtOXlaekNDQVFNR0Npc0dBUVFCMW5rQ0JBSUUKZ2ZRRWdmRUE3d0IyQUY2bmMvbmZWc0RudFRaSWZkQko0REo2a1pvTWhLRVNFb1FZZFphQmNVVllBQUFCY0tLMQptZkFBQUFRREFFY3dSUUloQUxYWlh2bmZNVHdCcXZ5M1prTGJPenk4eGwwWStMQlNqNWJPczRrUmNnQkRBaUJtClZZZ0QrbXAxUHFsSGdYZDkrdjJSbGU4RC9md3Rrd01CYlFSdnFQcmIvZ0IxQUxJZUJjeUxvczJLSUU2SFp2a3IKdVlvbElHZHIydnB3NTdKSlV5M3ZpNUJlQUFBQmNLSzFtZ1FBQUFRREFFWXdSQUlnQm5rdFo1Y29NRHc5U0xmKwozb3dSODBpekhXeFFhMVdudU0zQXBwY09TTllDSURNbTlSYUhCcmc5NmEzeGxiK2R3UVZaVmFsSVU4NjA4U0lUClJlVXI4dnlVTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFBUTViMVV2bFdmWUNIdUNyS2FLWEFKN3dkMTJwRmIKZDZxaStZcnhYUkV2MTNkeXhxRTJmT1paamdzcHEyZXV1OVdCMXpuSnJxbHBOSkxHSVMvTkZpcHpXTndwRGhEOAplMFJaclMxMU83VzhBYmw1ZHRRTHZieWJDRGl4cGVuY2pSZXRIcEVzdlcrL3dZUDdXQ3pjKzF5Q25HRWtiUU9YCk9LV0syeGx1NmJUUGkzV0p3YU80d21UWlQ3SHFGR2FRdTV2U0RMYnFwVFFBSHB4UUp5OGVmS0pUSGZSMFhHMGoKS3REbUdQcGpRYXROeFh0eDlaa3UzMjB6NXVVRmxiemxYK3RMK294dktjelZoUzBKR3cwQ3R4Y0xJSnpxV1BlcgpxMjRIbFZ3bzhBSDh6UzVGUm11UitYNUFqNEFqSExNcUtxZUljWGJFV1FUeW5JKyt5dWdCQXN4eQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFa2pDQ0EzcWdBd0lCQWdJUUNnRkJRZ0FBQVZPRmMyb0xoZXluQ0RBTkJna3Foa2lHOXcwQkFRc0ZBREEvCk1TUXdJZ1lEVlFRS0V4dEVhV2RwZEdGc0lGTnBaMjVoZEhWeVpTQlVjblZ6ZENCRGJ5NHhGekFWQmdOVkJBTVQKRGtSVFZDQlNiMjkwSUVOQklGZ3pNQjRYRFRFMk1ETXhOekUyTkRBME5sb1hEVEl4TURNeE56RTJOREEwTmxvdwpTakVMTUFrR0ExVUVCaE1DVlZNeEZqQVVCZ05WQkFvVERVeGxkQ2R6SUVWdVkzSjVjSFF4SXpBaEJnTlZCQU1UCkdreGxkQ2R6SUVWdVkzSjVjSFFnUVhWMGFHOXlhWFI1SUZnek1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0MKQVE4QU1JSUJDZ0tDQVFFQW5OTU04RnJsTGtlM2NsMDNnN05vWXpEcTF6VW1HU1hodmI0MThYQ1NMN2U0UzBFRgpxNm1lTlFoWTdMRXF4R2lIQzZQamRlVG04NmRpY2JwNWdXQWYxNUdhbi9QUWVHZHh5R2tPbFpIUC91YVo2V0E4ClNNeCt5azEzRWlTZFJ4dGE2N25zSGpjQUhKeXNlNmNGNnM1SzY3MUI1VGFZdWN2OWJUeVdhTjhqS2tLUURJWjAKWjhoL3BacTRVbUVVRXo5bDZZS0h5OXY2RGxiMmhvbnpoVCtYaHErdzNCcnZhdzJWRm4zRUs2QmxzcGtFTm5XQQphNnhLOHh1UVNYZ3ZvcFpQS2lBbEtRVEdkTURRTWMyUE1UaVZGcnFvTTdoRDhiRWZ3ekIvb25reEV6MHROdmpqCi9QSXphcms1TWNXdnhJME5IV1FXTTZyNmhDbTIxQXZBMkgzRGt3SURBUUFCbzRJQmZUQ0NBWGt3RWdZRFZSMFQKQVFIL0JBZ3dCZ0VCL3dJQkFEQU9CZ05WSFE4QkFmOEVCQU1DQVlZd2Z3WUlLd1lCQlFVSEFRRUVjekJ4TURJRwpDQ3NHQVFVRkJ6QUJoaVpvZEhSd09pOHZhWE55Wnk1MGNuVnpkR2xrTG05amMzQXVhV1JsYm5SeWRYTjBMbU52CmJUQTdCZ2dyQmdFRkJRY3dBb1l2YUhSMGNEb3ZMMkZ3Y0hNdWFXUmxiblJ5ZFhOMExtTnZiUzl5YjI5MGN5OWsKYzNSeWIyOTBZMkY0TXk1d04yTXdId1lEVlIwakJCZ3dGb0FVeEtleHBIc3NjZnJiNFV1UWRmL0VGV0NGaVJBdwpWQVlEVlIwZ0JFMHdTekFJQmdabmdRd0JBZ0V3UHdZTEt3WUJCQUdDM3hNQkFRRXdNREF1QmdnckJnRUZCUWNDCkFSWWlhSFIwY0RvdkwyTndjeTV5YjI5MExYZ3hMbXhsZEhObGJtTnllWEIwTG05eVp6QThCZ05WSFI4RU5UQXoKTURHZ0w2QXRoaXRvZEhSd09pOHZZM0pzTG1sa1pXNTBjblZ6ZEM1amIyMHZSRk5VVWs5UFZFTkJXRE5EVWt3dQpZM0pzTUIwR0ExVWREZ1FXQkJTb1NtcGpCSDNkdXViUk9iZW1SV1h2ODZqc29UQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBUUVBM1RQWEVmTmpXRGpkR0JYN0NWVytkbGE1Y0VpbGFVY25lOElrQ0pMeFdoOUtFaWszSkhSUkhHSm8KdU0yVmNHZmw5NlM4VGloUnpadm9yb2VkNnRpNldxRUJtdHp3M1dvZGF0ZytWeU9lcGg0RVlwci8xd1hLdHg4Lwp3QXBJdkpTd3RtVmk0TUZVNWFNcXJTREU2ZWE3M01qMnRjTXlvNWpNZDZqbWVXVUhLOHNvL2pvV1VvSE9VZ3d1Clg0UG8xUVl6KzNkc3prRHFNcDRma2x4QndYUnNXMTBLWHpQTVRaK3NPUEF2ZXl4aW5kbWprVzhsR3krUXNSbEcKUGZaK0c2WjZoN21qZW0wWStpV2xrWWNWNFBJV0wxaXdCaThzYUNiR1M1ak4ycDhNK1grUTdVTktFa1JPYjNONgpLT3FrcW01N1RIMkgzZURKQWtTbmg2L0RORnUwUWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    annotations: {}
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    certmanager.k8s.io/acme-http01-edit-in-place: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: api.falsepill.com
+      - host: dev-sandbox-healthchat.falsepill.com
+    paths: 
+      - / 
+    tls: 
+    - secretName: core-api-sb-tls
+      hosts:
+        - api.falsepill.com
+        - dev-sandbox-healthchat.falsepill.com    
+
+
+dashboard:
+  name: dashboard-api
+  containername: dashboard-api
+  repository: gcr.io/pharmacy-265821/dashboard-api:bd8e1ff0c0dcc2d89624e7cb5a70cbc56d623ef1
+  pullPolicy: Always
+  replicaCount: 1
+  service:
+    type: NodePort
+    port: 80
+    targetport: 3000
+  ingress:
+    enabled: true
+    secrets:
+    - name: dashboard-api-sb-tls
+      namespace: helmcharts
+      key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBcGU4Q2swdXhCL3NFalY1RGg1WWJYUWovY3B0WDZiNm01ZllMdTFwdmI3Ni9xVkxaCkpFazJwSjluc3BiRE9leUVXZ2RReGZMaUp4SklmQWx3Szl1YTNuNnlkUHdBMncydUNlK3h2VWFNL2pWRllaUjQKaGF2ckhwRzRxNUJUU1NSUm5IN0hhd3RjdDI0L2wyZXJRYUpSc0VhTkJFNHZ2K1ZDYkZnMFRTY2lBSjNUUnZLeQpQS3VvM0RGK0VkL1M2Y3ZyWUV6em9TSkQ1Y0ljeDg5QnhJamllRVQ5aDJmcnoydk5ZYmZHdXpFQVZsbklIRko0Ci8rR3dYYnZOR05adUprSHJHSFNRaERJd2x4SVpmaHNsaUd1UjQyaUVjamZkeDhMQ0JONHo4a0dURS9wcEd1Q0wKZlR1NEZETTMzREdMdm13Z1RrMCszOGw2bjUwN1JGR09ibTY3ZVFJREFRQUJBb0lCQUZKMDVpdTZCbHYzNGpnNQo2b2JiRWZmMmU3SkEvYnZiRU9iZmtNN21UdEFSMHY1YWZDc3E4cXQxeHpzWTdpUy9vcmwyUHk1TzF4RWhaY0cxCmt2ZElacm8vN1lCeXBoNDB1eEtXK1JVY2xQM1NEUXREazJ5aGxQSVk2ZExmb25PTFI3N2p4VWN0VzBLUDE2dnUKU1UwUlUxU3NpbkRrUlpndlhnV25BejUvdnNiYzJjRFhsMVBSTjBtVWg0VG5KeXRxcWlSNXpDRnhJb3JrT0NiNwpLeEhwZkJCWmJMSFhhMkk3bEVjWXFxVWRjd2pvWjhpMklOOTdsdkpvT1dTU2tPa2Nld1VqUVdsRzJTbTA5NUxqCkN6d2U4SlU0azVHQitBOWFZaVRHSG42azhpQlVoaWhtTkpEYWFxUlVuYXIyaVNiT1FnMVR4QlVBVmRFREFYY0wKTDJINXEyMENnWUVBMk50bVd4elJnUS9WcEZqNUo4ZTZYU1J6Zi9Eb3FhS05kSHlqdldtb2YxR29yUklIOGVJNQpVTU9CZjQ4c0ZUeFJNdEN5YytTWEVBUFB2ZFFFYzZDYVVmMlVTRUVXTC9Pd3BLTC9uQ0o5ZjVWdm04cTFQT1BKCmRsdzlkSHBRS2JVeVlMaXFTV2dsSVNwdUt2OFlnVWFmaFZ1MHJ1eHJ0WTVDTEhNVkZNUkhaNThDZ1lFQXcrS0cKZTVaTER1R2pvajdyeHdLMG96U0FDQTY3ZWp6ZExOVGxKY0FvVWloQjdHM0R6RG9oWHJmb3ZlN3kxR1dxZUIrVgpDSyt3dTlVVkhpU1ZjSDJNRmFNeHl5bVpiTFg2Wm5iTXlYNC82V2x2dDZSZ29sK29vZi9sUW9RenlBem9LZHp3ClFEZ0xoSWxyTzlPdjJ4Q3QydkhyM2ZKUFJxd3VpZlNBamJkUjVlY0NnWUF5MTNWdTVSbkZQWFlrT3V2blJLOVAKeVF6L01QY0xWbDM5c244ZEdGbDF5Q3BZc1VLRmxqbEQweUpZU3JQV0lyY1N4OVVlMExnTi9DYkhaWjdKa1J5OQpIa3VXaVJQdm1CMlE2OW9ydS9aYVpDbXZoOTNuOGF1NUFUVXpTcjNpbVdXL1FXeERHNVNnNnZhN1ErVjE0WjNpCndUWmlVSEdNTmxjVFhzUFJnNWNPRndLQmdRQ1I2b1ZKUEt5TzJsQmRoTWQzeUxFc3ZlZjltSlBaTzh0NklPRE4KWFRYcjlXY2VLcW5tMFFxWWx5QzlrMmk2QlQyV0c5aVZ6dUkxR1VhUTNLbWhVVFJ2emRCQ3lhc3JTdWZMT2dYVQp0c0gvS25aNDh1NjFKZExsVWt6Q1h0NS96L1dGY2JwWjdDWFFSZGxtaUlzQUFZMndnZk8wc2xLUmo2TmZTbzRVCmd4Rnowd0tCZ1FDOHE3SlYrODdkVnRzbHQ2Q2Y2b09ka3BVQ2pvRzVmWmhHUFl4SzM0c3JkQ0lFcUtNMjRycWEKczB6NTdKZUxydy83VENOaW9RazVxYndjUEJ2UXJ4UnpLTG8vaGlCUTErdjNrbW9xRnFJcVJqS3JzcWppT3hOSQpzTTZPbUZDQW4rNzVTclNHWlVsQ3pGR0tNdEhJTElwNEJCQlV3NjZOQ1NFenRYODY2YVo2VWc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+      certificate: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZiakNDQkZhZ0F3SUJBZ0lTQTBYSWZMVCtBSndKU2NOdmpGVzNmVTBBTUEwR0NTcUdTSWIzRFFFQkN3VUEKTUVveEN6QUpCZ05WQkFZVEFsVlRNUll3RkFZRFZRUUtFdzFNWlhRbmN5QkZibU55ZVhCME1TTXdJUVlEVlFRRApFeHBNWlhRbmN5QkZibU55ZVhCMElFRjFkR2h2Y21sMGVTQllNekFlRncweU1EQXlNVGt4T1RBNU5URmFGdzB5Ck1EQTFNVGt4T1RBNU5URmFNQ1l4SkRBaUJnTlZCQU1URzJSaGMyaGliMkZ5WkMxaGNHa3VabUZzYzJWd2FXeHMKTG1OdmJUQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUtYdkFwTkxzUWY3QkkxZQpRNGVXRzEwSS8zS2JWK20rcHVYMkM3dGFiMisrdjZsUzJTUkpOcVNmWjdLV3d6bnNoRm9IVU1YeTRpY1NTSHdKCmNDdmJtdDUrc25UOEFOc05yZ252c2IxR2pQNDFSV0dVZUlXcjZ4NlJ1S3VRVTBra1VaeCt4MnNMWExkdVA1ZG4KcTBHaVViQkdqUVJPTDcvbFFteFlORTBuSWdDZDAwYnlzanlycU53eGZoSGYwdW5MNjJCTTg2RWlRK1hDSE1mUApRY1NJNG5oRS9ZZG42ODlyeldHM3hyc3hBRlpaeUJ4U2VQL2hzRjI3elJqV2JpWkI2eGgwa0lReU1KY1NHWDRiCkpZaHJrZU5vaEhJMzNjZkN3Z1RlTS9KQmt4UDZhUnJnaTMwN3VCUXpOOXd4aTc1c0lFNU5QdC9KZXArZE8wUlIKam01dXUza0NBd0VBQWFPQ0FuQXdnZ0pzTUE0R0ExVWREd0VCL3dRRUF3SUZvREFkQmdOVkhTVUVGakFVQmdncgpCZ0VGQlFjREFRWUlLd1lCQlFVSEF3SXdEQVlEVlIwVEFRSC9CQUl3QURBZEJnTlZIUTRFRmdRVUh5U3I0alFxCkcrUVllZ3pWajZ5U2RUTWlQOTR3SHdZRFZSMGpCQmd3Rm9BVXFFcHFZd1I5M2JybTBUbTNwa1ZsNy9PbzdLRXcKYndZSUt3WUJCUVVIQVFFRVl6QmhNQzRHQ0NzR0FRVUZCekFCaGlKb2RIUndPaTh2YjJOemNDNXBiblF0ZURNdQpiR1YwYzJWdVkzSjVjSFF1YjNKbk1DOEdDQ3NHQVFVRkJ6QUNoaU5vZEhSd09pOHZZMlZ5ZEM1cGJuUXRlRE11CmJHVjBjMlZ1WTNKNWNIUXViM0puTHpBbUJnTlZIUkVFSHpBZGdodGtZWE5vWW05aGNtUXRZWEJwTG1aaGJITmwKY0dsc2JDNWpiMjB3VEFZRFZSMGdCRVV3UXpBSUJnWm5nUXdCQWdFd053WUxLd1lCQkFHQzN4TUJBUUV3S0RBbQpCZ2dyQmdFRkJRY0NBUllhYUhSMGNEb3ZMMk53Y3k1c1pYUnpaVzVqY25sd2RDNXZjbWN3Z2dFRUJnb3JCZ0VFCkFkWjVBZ1FDQklIMUJJSHlBUEFBZGdCZXAzUDUzMWJBNTdVMlNIM1FTZUF5ZXBHYURJU2hFaEtFR0hXV2dYRkYKV0FBQUFYQmZFaXcyQUFBRUF3QkhNRVVDSVFERXdqS0VnK2Q4eldlRnhYSGlEZi80dGd3VjVaWmNYQWVhZnNQdgpQcHlKZkFJZ00zd3lOcy9KcU80U1haQ2ZUTWFxS3R2eWJBbDFhcjFGZU5WZUxOUWJzZUlBZGdDeUhnWE1pNkxOCmlpQk9oMmI1SzdtS0pTQm5hOXI2Y09leVNWTXQ3NHVRWGdBQUFYQmZFaXdrQUFBRUF3QkhNRVVDSVFDbjVPOU4KbjF6V3J5bDM1cm1ROXpEcUNudXZpZFBzV1ZWK0Era1Rxa2Q3V0FJZ1VYU1pPaXNtNzljOWpvei90MzJwYTRXbwovN01ETXFGd2JETXVPbTFLeTdNd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFFVFBTd0VBUDJuN211R1NyWm5rCmxKa2Zsd2RHd2RsSnFNUzBqWHdDU3NvMStYd2VXanZQQXJjb3pNOTZiVTQ0OGFhWHc0dzdtemFFeEJ2QUo1K3MKMVZiYW40bGs3MWZBTDJMWXM4YXd2TmZpV1FEOFprWnp2MVc2Z3FwR2F0QlhzMG1tNlIxQ3V5QzVoUWtBT0M3dwpzRGtrVmF6KzdrNTZjN0M4a3UwMVp6OVlnYTArS3FudU14YjB5ak1Sczl4eGdsbXFDTTJMNUxoNVBSSEJ2RjB3CkFvNDZkMkRkd3U4YXhMc3J2WnVRaXArTmRTNmJPZ25uZkZCUkJ5WVo2cCtaZGlUSDE5YnVLdVBRU1U3blAyQXQKSlhXODY5aGNuNWdZWFF2UmVZYzl0MEdIVG9ROTFLc0FZY0MzTXZaQzJteGlzM00rT3RkSFBqc25xSllwazVISwpVQmM9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVrakNDQTNxZ0F3SUJBZ0lRQ2dGQlFnQUFBVk9GYzJvTGhleW5DREFOQmdrcWhraUc5dzBCQVFzRkFEQS8KTVNRd0lnWURWUVFLRXh0RWFXZHBkR0ZzSUZOcFoyNWhkSFZ5WlNCVWNuVnpkQ0JEYnk0eEZ6QVZCZ05WQkFNVApEa1JUVkNCU2IyOTBJRU5CSUZnek1CNFhEVEUyTURNeE56RTJOREEwTmxvWERUSXhNRE14TnpFMk5EQTBObG93ClNqRUxNQWtHQTFVRUJoTUNWVk14RmpBVUJnTlZCQW9URFV4bGRDZHpJRVZ1WTNKNWNIUXhJekFoQmdOVkJBTVQKR2t4bGRDZHpJRVZ1WTNKNWNIUWdRWFYwYUc5eWFYUjVJRmd6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQwpBUThBTUlJQkNnS0NBUUVBbk5NTThGcmxMa2UzY2wwM2c3Tm9ZekRxMXpVbUdTWGh2YjQxOFhDU0w3ZTRTMEVGCnE2bWVOUWhZN0xFcXhHaUhDNlBqZGVUbTg2ZGljYnA1Z1dBZjE1R2FuL1BRZUdkeHlHa09sWkhQL3VhWjZXQTgKU014K3lrMTNFaVNkUnh0YTY3bnNIamNBSEp5c2U2Y0Y2czVLNjcxQjVUYVl1Y3Y5YlR5V2FOOGpLa0tRRElaMApaOGgvcFpxNFVtRVVFejlsNllLSHk5djZEbGIyaG9uemhUK1hocSt3M0JydmF3MlZGbjNFSzZCbHNwa0VObldBCmE2eEs4eHVRU1hndm9wWlBLaUFsS1FUR2RNRFFNYzJQTVRpVkZycW9NN2hEOGJFZnd6Qi9vbmt4RXowdE52amoKL1BJemFyazVNY1d2eEkwTkhXUVdNNnI2aENtMjFBdkEySDNEa3dJREFRQUJvNElCZlRDQ0FYa3dFZ1lEVlIwVApBUUgvQkFnd0JnRUIvd0lCQURBT0JnTlZIUThCQWY4RUJBTUNBWVl3ZndZSUt3WUJCUVVIQVFFRWN6QnhNRElHCkNDc0dBUVVGQnpBQmhpWm9kSFJ3T2k4dmFYTnlaeTUwY25WemRHbGtMbTlqYzNBdWFXUmxiblJ5ZFhOMExtTnYKYlRBN0JnZ3JCZ0VGQlFjd0FvWXZhSFIwY0RvdkwyRndjSE11YVdSbGJuUnlkWE4wTG1OdmJTOXliMjkwY3k5awpjM1J5YjI5MFkyRjRNeTV3TjJNd0h3WURWUjBqQkJnd0ZvQVV4S2V4cEhzc2NmcmI0VXVRZGYvRUZXQ0ZpUkF3ClZBWURWUjBnQkUwd1N6QUlCZ1puZ1F3QkFnRXdQd1lMS3dZQkJBR0MzeE1CQVFFd01EQXVCZ2dyQmdFRkJRY0MKQVJZaWFIUjBjRG92TDJOd2N5NXliMjkwTFhneExteGxkSE5sYm1OeWVYQjBMbTl5WnpBOEJnTlZIUjhFTlRBegpNREdnTDZBdGhpdG9kSFJ3T2k4dlkzSnNMbWxrWlc1MGNuVnpkQzVqYjIwdlJGTlVVazlQVkVOQldETkRVa3d1ClkzSnNNQjBHQTFVZERnUVdCQlNvU21wakJIM2R1dWJST2JlbVJXWHY4Nmpzb1RBTkJna3Foa2lHOXcwQkFRc0YKQUFPQ0FRRUEzVFBYRWZOaldEamRHQlg3Q1ZXK2RsYTVjRWlsYVVjbmU4SWtDSkx4V2g5S0VpazNKSFJSSEdKbwp1TTJWY0dmbDk2UzhUaWhSelp2b3JvZWQ2dGk2V3FFQm10enczV29kYXRnK1Z5T2VwaDRFWXByLzF3WEt0eDgvCndBcEl2SlN3dG1WaTRNRlU1YU1xclNERTZlYTczTWoydGNNeW81ak1kNmptZVdVSEs4c28vam9XVW9IT1Vnd3UKWDRQbzFRWXorM2RzemtEcU1wNGZrbHhCd1hSc1cxMEtYelBNVForc09QQXZleXhpbmRtamtXOGxHeStRc1JsRwpQZlorRzZaNmg3bWplbTBZK2lXbGtZY1Y0UElXTDFpd0JpOHNhQ2JHUzVqTjJwOE0rWCtRN1VOS0VrUk9iM042CktPcWtxbTU3VEgySDNlREpBa1NuaDYvRE5GdTBRZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    annotations: {}
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    certmanager.k8s.io/acme-http01-edit-in-place: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: dashboard-api.falsepill.com
+    paths: 
+      - / 
+    tls: 
+    - secretName: dashboard-api-sb-tls
+      hosts:
+        - dashboard-api.falsepill.com
+        
+
+postit:
+  name: postit
+  containername: postit-tpapp
+  repository: gcr.io/pharmacy-265821/postit:573839a0c1a80e4afba31e3fe55a806b91755683 
+  pullPolicy: Always
+  replicaCount: 1
+  service:
+    type: ClusterIP
+
+sqs:
+  name: sqs
+  containername: sqs-tpapp
+  repository: roribio16/alpine-sqs:latest 
+  pullPolicy: Always
+  replicaCount: 1
+  service:
+    type: NodePort
+    httpstandard:
+      port: 80
+      targetport: 9324
+    http:
+      port: 9324
+      targetport: 9324
+    admin:
+      port: 9325
+      targetport: 9325
+  
+aws:
+  access_key: QUtJQTU2STZZSUVPVzVLSzdHUEk=
+  region: dXMtZWFzdC0x
+  secret_key: YmY3VFRJY0VEc2ozT1NoR2VZWHBOZGdjdHVMNW0rYy9YdEloQmtNYw==
+
+vault:
+  JWT_TOKEN: ZWI2ZjQxMzM5ZjA0MzU5OGYzMjNiZjQ4Y2FhNzdmMjJjYmRiNGVhOTU4MzYwZDE0OTY3NmViODNiMTBiM2Y5NGVlZGYzMTNiMzIwYmI2NmFlOTQwODUzYWVkODcxMzdmOTVmNmVlOTgyYTRhMTk4MDg0ZTJhOTM1ZjIwNDI2YTc=
+  MYSQL_PASSWORD: dHJ1ZXBpbGw=
+  NPM_TOKEN: Y2RlZDBmZTg1ZDdkZDVmODhkZDU2ZjgxNTBkNmNiZWIyODBhZGU4Yw==
+  ROLLBAR_TOKEN: YzdiYThhZTA2M2FhNDNlNDhlY2FhMDQwMmFiYTYxZjA=
+
+configmap:
+  ARGUS_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/argus_dev-sandbox
+  BOM_ASSIGNMENT_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/order_bom_assignment_dev-sandbox
+  ELASTIC_APM_LOG_UNCAUGHT_EXCEPTIONS: "true"
+  ELASTIC_APM_SERVER_URL: http://apm-server.default:8200
+  EVENT_LOGGER_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/event_logger_dev-sandbox
+  FILL_REQUESTS_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/fill_requests_dev-sandbox
+  LOCATION_ASSIGNMENT_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/location_assignment_dev-sandbox
+  MONGO_CONNECTION: mongodb://mongo:27017/admin
+  MONGO_DB: admin
+  MYSQL_HOST: 34.201.31.226
+  MYSQL_PORT: "3307"
+  MYSQL_USER: root
+  NURXRECOVERY_QUEUE: http://sqs/queue/nurx_recovery
+  PIONEER_EVENTS_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/pioneer_events_sandbox
+  POSTIT_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/postit_callbacks_dev-sandbox
+  PYONEER_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/pyoneer_dev-sandbox
+  QUEUE_NURXRECOVERY: http://sqs/queue/nurx_recovery
+  QUEUE_POSTIT: https://sqs.us-east-1.amazonaws.com/958379082013/postit_callbacks_dev-sandbox
+  READY_TO_FILL_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/TCGRX_ready_to_fill_dev-sandbox
+  SIMIT_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/simit
+  SQS_ENDPOINT: https://sqs.us-east-1.amazonaws.com/958379082013/
+  TCGRX_REQUEST_QUEUE: https://sqs.us-east-1.amazonaws.com/958379082013/TCGRX_requests_dev-sandbox
+  TCGRX_S3_BUCKET_URL: tcgrx-orders-dev-sandbox
+
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+
+ingress:
+  enabled: true
+  annotations: {}
+  kubernetes.io/ingress.class: nginx
+  cert-manager.io/cluster-issuer: letsencrypt-prod
+  certmanager.k8s.io/acme-http01-edit-in-place: "true"
+  nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: api.falsepill.com
+    - host: dev-sandbox-healthchat.falsepill.com
+  paths: 
+    - / 
+  tls: 
+  - secretName: core-api-sb-tls
+    hosts:
+      - api.falsepill.com
+      - dev-sandbox-healthchat.falsepill.com
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configurationFiles: 
+  elasticmq.conf.file: |-
+    include classpath("application.conf")
+
+    queues {
+        simit {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        fill_requests {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        postit_callbacks {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        pyoneer-api {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        pharmacy_automation {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+    }
+
+    rest-sqs {
+        enabled = true
+        bind-port = 9324
+        bind-hostname = "0.0.0.0"
+        // Possible values: relaxed, strict
+        sqs-limits = strict
+    }

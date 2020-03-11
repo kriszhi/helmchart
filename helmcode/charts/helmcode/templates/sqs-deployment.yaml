@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.sqs.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "sqs.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.sqs.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      {{- include "sqs.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "sqs.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.sqs.containername }}
+          image: "{{ .Values.sqs.repository }}"
+          imagePullPolicy: {{ .Values.sqs.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 9324
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/elasticmq.conf
+              name: elasticmq-conf
+              subPath: elasticmq.conf.file
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: {{ .Values.sqs.name }}
+          name: elasticmq-conf

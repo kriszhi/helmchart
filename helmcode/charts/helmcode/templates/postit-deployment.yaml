@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postit.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "postit.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.postit.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "postit.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "postit.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.postit.containername }}
+          image: "{{ .Values.postit.repository }}"
+          imagePullPolicy: {{ .Values.postit.pullPolicy }}
+          envFrom:
+          - secretRef:
+              name: aws
+          - secretRef:
+              name: vault
+          - configMapRef:
+              name: common-core
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.namespace }}
+

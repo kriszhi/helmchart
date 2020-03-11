@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.dashboard.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "dashboard.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.dashboard.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      {{- include "dashboard.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "dashboard.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.dashboard.containername }}
+          image: "{{ .Values.dashboard.repository }}"
+          imagePullPolicy: {{ .Values.dashboard.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+          envFrom:
+          - secretRef:
+              name: aws
+          - secretRef:
+              name: vault
+          - configMapRef:
+              name: common-core
+          env:
+            - name: SERVICE_NAME
+              value: {{ .Values.dashboard.name }}
+            - name: NODE_ENV
+              value: {{ .Values.namespace }}
+

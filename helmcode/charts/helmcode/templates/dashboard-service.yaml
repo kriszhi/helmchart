@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.dashboard.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: {{ .Values.dashboard.service.type }}
+  ports:
+    - port: {{ .Values.dashboard.service.port }}
+      targetPort: {{ .Values.dashboard.service.targetport }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "app.dashboardselectorLabels" . | nindent 4 }}
