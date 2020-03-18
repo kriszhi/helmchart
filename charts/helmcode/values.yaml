@@ -102,10 +102,10 @@ sqs:
       port: 9325
       targetport: 9325
   
-#aws:
-#  access_key: QUtJQTU2STZZSUVPVzVLSzdHUEk=
-#  region: dXMtZWFzdC0x
-#  secret_key: YmY3VFRJY0VEc2ozT1NoR2VZWHBOZGdjdHVMNW0rYy9YdEloQmtNYw==
+aws:
+  AWS_ACCESS_KEY_ID: { .access_key }
+  AWS_DEFAULT_REGION: { .region }
+  AWS_SECRET_ACCESS_KEY: { .secret }
 
 vault:
   JWT_TOKEN: ZWI2ZjQxMzM5ZjA0MzU5OGYzMjNiZjQ4Y2FhNzdmMjJjYmRiNGVhOTU4MzYwZDE0OTY3NmViODNiMTBiM2Y5NGVlZGYzMTNiMzIwYmI2NmFlOTQwODUzYWVkODcxMzdmOTVmNmVlOTgyYTRhMTk4MDg0ZTJhOTM1ZjIwNDI2YTc=
