@@ -53,6 +53,10 @@ app: {{ .Values.dashboard.name }}
 env: {{ .Values.namespace }}
 {{- end }}
 
+{{- define "truefill.Labels" }}
+app: {{ .Values.truefill.name }}
+env: {{ .Values.namespace }}
+{{- end }}
 
 
 {{/*
@@ -72,6 +76,10 @@ app: {{ .Values.sqs.name }}
 
 {{- define "app.dashboardselectorLabels" -}}
 app: {{ .Values.dashboard.name }}
+{{- end -}}
+
+{{- define "app.truefillselectorLabels" -}}
+app: {{ .Values.truefill.name }}
 {{- end -}}
 
 
