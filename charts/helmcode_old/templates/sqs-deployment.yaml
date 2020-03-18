@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.sqs.name }}
-  namespace: {{ .Values.sqs.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "sqs.Labels" . | nindent 4 }}
 spec:

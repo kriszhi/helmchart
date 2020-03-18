@@ -1,0 +1,21 @@
+{{- if .Values.dashboard.ingress.enabled -}}
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  {{- range .Values.dashboard.ingress.secrets }}
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+  {{- end }}
+spec:
+  {{- range .Values.dashboard.ingress.tls }}
+  dnsNames:
+  {{- range .hosts }}
+      - {{ . | quote }}
+  {{- end }}
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}

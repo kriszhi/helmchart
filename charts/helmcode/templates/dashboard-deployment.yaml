@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.dashboard.name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.dashboard.namespace }}
   labels:
     {{- include "dashboard.Labels" . | nindent 4 }}
 spec:

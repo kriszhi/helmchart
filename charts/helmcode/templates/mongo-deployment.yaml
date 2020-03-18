@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.mongo.name }}
+  namespace: {{ .Values.mongo.namespace }}
+  labels:
+    {{- include "mongo.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mongo.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      {{- include "mongo.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mongo.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.mongo.containername }}
+          image: "{{ .Values.mongo.repository }}"
+          imagePullPolicy: {{ .Values.mongo.pullPolicy }}
+          ports:
+            - name: mongo
+              containerPort: 27017
+              protocol: TCP
+          command:
+          - mongod
+          - --bind_ip_all
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: postmeds
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: truepill
+          volumeMounts:
+          - mountPath: /data/db
+            name: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-mongo-0
+          

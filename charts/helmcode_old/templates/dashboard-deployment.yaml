@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.coreapi.name }}
-  namespace: {{ .Values.coreapi.namespace }}
+  name: {{ .Values.dashboard.name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    {{- include "app.Labels" . | nindent 4 }}
+    {{- include "dashboard.Labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.coreapi.replicaCount }}
+  replicas: {{ .Values.dashboard.replicaCount }}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      {{- include "app.Labels" . | nindent 6 }}
+      {{- include "dashboard.Labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "app.Labels" . | nindent 8 }}
+        {{- include "dashboard.Labels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Values.coreapi.containername }}
-          image: "{{ .Values.coreapi.repository }}"
-          imagePullPolicy: {{ .Values.coreapi.pullPolicy }}
+        - name: {{ .Values.dashboard.containername }}
+          image: "{{ .Values.dashboard.repository }}"
+          imagePullPolicy: {{ .Values.dashboard.pullPolicy }}
           ports:
             - name: http
               containerPort: 3000
@@ -37,7 +37,7 @@ spec:
               name: common-core
           env:
             - name: SERVICE_NAME
-              value: {{ .Values.coreapi.name }}
+              value: {{ .Values.dashboard.name }}
             - name: NODE_ENV
-              value: {{ .Values.coreapi.namespace }}
+              value: {{ .Values.namespace }}
 

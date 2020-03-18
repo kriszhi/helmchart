@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.truefill.name }}
+  namespace: {{ .Values.truefill.namespace }}
+spec:
+  type: {{ .Values.truefill.service.type }}
+  clusterIP: None
+  selector:
+    {{- include "app.truefillselectorLabels" . | nindent 4 }}
+

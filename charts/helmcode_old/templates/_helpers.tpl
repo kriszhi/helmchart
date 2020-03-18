@@ -58,11 +58,6 @@ app: {{ .Values.truefill.name }}
 env: {{ .Values.namespace }}
 {{- end }}
 
-{{- define "mongo.Labels" }}
-app: {{ .Values.truefill.name }}
-env: {{ .Values.namespace }}
-{{- end }}
-
 
 {{/*
 Selector labels
@@ -87,9 +82,6 @@ app: {{ .Values.dashboard.name }}
 app: {{ .Values.truefill.name }}
 {{- end -}}
 
-{{- define "app.mongoselectorLabels" -}}
-app: {{ .Values.mongo.name }}
-{{- end -}}
 
 {{/*
 Create the name of the service account to use

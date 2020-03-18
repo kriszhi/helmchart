@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.coreapi.name }}
-  namespace: {{ .Values.coreapi.namespace }}
+  name: {{ include "app.name" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "app.Labels" . | nindent 4 }}
 spec:
@@ -37,7 +37,7 @@ spec:
               name: common-core
           env:
             - name: SERVICE_NAME
-              value: {{ .Values.coreapi.name }}
+              value: {{ include "app.name" . }}
             - name: NODE_ENV
-              value: {{ .Values.coreapi.namespace }}
+              value: {{ .Values.namespace }}
 

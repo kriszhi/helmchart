@@ -1,0 +1,5 @@
+---
+creation_rules:
+#  - gcp_kms: 'projects/pharmacy-265821/locations/global/keyRings/sops/cryptoKeys/sops-key'
+  - pgp: 'E432 ECEA 1E7F 147A 08B4  0F59 902E 8433 6FC5 CC8A'
+

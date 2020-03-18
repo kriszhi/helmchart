@@ -8,6 +8,6 @@ spec:
   clusterIP: None
   selector:
     {{- include "app.postitselectorLabels" . | nindent 4 }}
-
+  sessionAffinity: None
 
 

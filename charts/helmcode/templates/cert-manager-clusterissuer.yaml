@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  annotations:
+  creationTimestamp: "2020-02-05T19:02:27Z"
+  generation: 1
+  name: letsencrypt-prod
+  namespace: {{ .Values.coreapi.namespace }}
+spec:
+  acme:
+    email: chase@truepill.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: nginx

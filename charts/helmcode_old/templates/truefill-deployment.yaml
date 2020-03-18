@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.truefill.name }}
+  namespace: {{ .Values.truefill.namespace }}
+  labels:
+    {{- include "truefill.Labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.truefill.replicaCount }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      {{- include "truefill.Labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "truefill.Labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.truefill.containername }}
+          image: "{{ .Values.truefill.repository }}"
+          imagePullPolicy: {{ .Values.truefill.pullPolicy }}
+          envFrom:
+          - secretRef:
+              name: aws
+          - secretRef:
+              name: vault
+          - configMapRef:
+              name: common-core
+          env:
+            - name: ENVIRONMENT
+              value: {{ .Values.namespace }}
+

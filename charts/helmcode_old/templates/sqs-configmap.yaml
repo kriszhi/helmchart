@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sqs
-  namespace: {{ .Values.sqs.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
 {{- range $key, $val := .Values.configurationFiles }}
   {{ $key }}: |-

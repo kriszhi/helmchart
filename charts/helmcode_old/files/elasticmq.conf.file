@@ -1,0 +1,38 @@
+    include classpath("application.conf")
+
+    queues {
+        simit {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        fill_requests {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        postit_callbacks {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        pyoneer-api {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+        pharmacy_automation {
+            defaultVisibilityTimeout = 15 seconds
+            delay = 0 seconds
+            receiveMessageWait = 0 seconds
+        }
+    }
+
+    rest-sqs {
+        enabled = true
+        bind-port = 9324
+        bind-hostname = "0.0.0.0"
+        // Possible values: relaxed, strict
+        sqs-limits = strict
+    }
+

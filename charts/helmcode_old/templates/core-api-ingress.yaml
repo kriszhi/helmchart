@@ -1,5 +1,5 @@
 {{- if .Values.coreapi.ingress.enabled -}}
-{{- $fullName := .Values.coreapi.name -}}
+{{- $fullName := include "app.name" . -}}
 {{- $svcPort := .Values.coreapi.service.port -}}
 {{- $paths := .Values.coreapi.ingress.paths -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -9,8 +9,8 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ .Values.coreapi.name }}
-  namespace: {{ .Values.coreapi.namespace }}
+  name: {{ include "app.name" . }}
+  namespace: {{ .Values.namespace }}
   {{- with .Values.coreapi.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
